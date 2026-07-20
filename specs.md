@@ -227,6 +227,12 @@ Priority order, selectable in settings:
 "Test voice" button in settings speaks a sample line. On ElevenLabs failure, show
 the error inline and fall back to browser voice for the rest of the session.
 
+**Refinement to "rest of the session":** the fallback latches on the *voice id* that
+failed, not on ElevenLabs as a whole. Editing the voice id in settings retries — an
+edit is an explicit correction, and fixing a typo only to still hear the browser voice
+reads as the fix not working. A rejected or missing key (401/403/503) latches hard: no
+UI edit can fix that, so retrying only burns calls.
+
 ## 5. Question bank
 
 Stored in localStorage (`surface:bank`), seeded from `lib/seed-bank.ts` on first run.

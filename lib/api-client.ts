@@ -62,7 +62,7 @@ export async function fetchCritique(input: CritiqueRequest): Promise<Critique> {
 export async function fetchSpeech(
   text: string,
   voiceId: string,
-): Promise<{ url: string } | { error: string }> {
+): Promise<{ url: string } | { error: string; status: number }> {
   try {
     const res = await fetch("/api/tts", {
       method: "POST",
@@ -71,10 +71,12 @@ export async function fetchSpeech(
     });
     if (!res.ok) {
       const body = (await res.json().catch(() => ({}))) as { error?: string };
-      return { error: body.error ?? `tts failed (${res.status})` };
+      // status lets the caller tell "this voice is wrong" (retry on edit) from
+      // "the key is wrong" (nothing in the UI can fix it).
+      return { error: body.error ?? `tts failed (${res.status})`, status: res.status };
     }
     return { url: URL.createObjectURL(await res.blob()) };
   } catch {
-    return { error: "tts unreachable" };
+    return { error: "tts unreachable", status: 0 };
   }
 }

@@ -20,8 +20,16 @@ export function useVoice(settings: Settings) {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const urlRef = useRef<string | null>(null);
-  // Set once ElevenLabs has failed — §4 says fall back for the rest of the session.
-  const elevenFailedRef = useRef(false);
+
+  /**
+   * §4 says an ElevenLabs failure falls back to the browser voice for the rest
+   * of the session. Deliberate deviation: we latch the *voice id* that failed
+   * rather than a bare boolean, so correcting the id in settings retries. Fixing
+   * a typo and still hearing the browser voice reads as the fix not working.
+   */
+  const failedVoiceIdRef = useRef<string | null>(null);
+  /** Missing or rejected key — no edit in the UI can fix it, so latch hard. */
+  const keyFailedRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.speechSynthesis) return;
@@ -81,7 +89,10 @@ export function useVoice(settings: Settings) {
       cancel();
       setError(null);
 
-      if (settings.voiceMode === "elevenlabs" && !elevenFailedRef.current) {
+      const voiceAlreadyFailed = failedVoiceIdRef.current === settings.elevenVoiceId;
+      const elevenUsable = !keyFailedRef.current && !voiceAlreadyFailed;
+
+      if (settings.voiceMode === "elevenlabs" && elevenUsable) {
         const result = await fetchSpeech(text, settings.elevenVoiceId);
         if ("url" in result) {
           urlRef.current = result.url;
@@ -104,10 +115,16 @@ export function useVoice(settings: Settings) {
           });
           return;
         }
-        // Show the reason inline, then use the browser voice for the rest of
-        // the session rather than retrying a key or voiceId that won't work.
+        // Show the reason inline, then use the browser voice rather than
+        // retrying something that won't work. A 401/403 (rejected key) or 503
+        // (key not set) is unfixable from the UI; anything else is treated as
+        // this voice id being wrong, and retries once the id changes.
         setError(result.error);
-        elevenFailedRef.current = true;
+        if ([401, 403, 503].includes(result.status)) {
+          keyFailedRef.current = true;
+        } else {
+          failedVoiceIdRef.current = settings.elevenVoiceId;
+        }
       }
 
       await speakBrowser(text);
