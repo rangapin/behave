@@ -1,0 +1,54 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.segmented {
+  display: flex;
+  gap: 6px;
+}
+
+.segment {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--mist);
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+.segment:hover {
+  border-color: var(--kelp);
+}
+
+.active {
+  border-color: var(--kelp);
+  color: var(--kelp);
+  background: rgba(95, 211, 188, 0.1);
+}
+
+.select,
+.input {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: rgba(14, 34, 51, 0.6);
+  color: var(--foam);
+  max-width: 260px;
+}

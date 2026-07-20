@@ -1,0 +1,47 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.heading {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.value {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+  color: var(--foam);
+}
+
+.worst {
+  margin: 0;
+  color: var(--amber);
+  text-transform: none;
+  letter-spacing: 0.06em;
+}
+
+.note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--mist);
+  opacity: 0.7;
+}

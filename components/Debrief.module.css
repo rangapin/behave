@@ -1,0 +1,87 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.over {
+  color: var(--amber);
+}
+
+.starCard {
+  padding: 16px 20px;
+}
+
+.critique,
+.followup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.degraded,
+.selfCheckLabel {
+  margin: 0;
+  font-size: 11px;
+  color: var(--amber);
+}
+
+.selfCheckLabel {
+  color: var(--mist);
+}
+
+.points {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--mist);
+  font-size: 15px;
+}
+
+.points li::marker {
+  color: var(--kelp);
+}
+
+.followupLabel {
+  margin: 0;
+  font-size: 11px;
+  color: var(--kelp);
+}
+
+.followupText {
+  margin: 0;
+  font-size: 17px;
+  color: var(--foam);
+}
+
+.audio {
+  width: 100%;
+  max-width: 420px;
+}
+
+.transcript summary {
+  cursor: pointer;
+  color: var(--mist);
+}
+
+.transcript p {
+  margin: 10px 0 0;
+  color: var(--mist);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}

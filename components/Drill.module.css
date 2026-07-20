@@ -1,0 +1,102 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nostory {
+  color: var(--amber);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.question {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--foam);
+}
+
+.original {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--mist);
+  opacity: 0.65;
+  text-transform: none;
+}
+
+.hint {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hintToggle {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  color: var(--kelp);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.hintText {
+  margin: 0;
+  font-size: 14px;
+  color: var(--mist);
+  border-left: 2px solid var(--card-border);
+  padding-left: 12px;
+}
+
+.timerRow {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--alert);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
