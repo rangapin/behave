@@ -62,9 +62,20 @@ export function saveBank(bank: Question[]): void {
   write(KEYS.bankVersion, SEED_VERSION);
 }
 
+/** Rachel — a library voice; free-tier keys get 402 on it. specs.md §4. */
+const RETIRED_VOICE_IDS = new Set(["21m00Tcm4TlvDq8ikWAM"]);
+
 export function loadSettings(): Settings {
+  const stored = read<Partial<Settings>>(KEYS.settings, {});
+
+  // Stored values win over defaults, so a bad voiceId saved before the default
+  // changed would otherwise persist forever and the fix would never land.
+  if (stored.elevenVoiceId && RETIRED_VOICE_IDS.has(stored.elevenVoiceId)) {
+    delete stored.elevenVoiceId;
+  }
+
   // Merge over defaults so a settings shape added later doesn't break an old store.
-  return { ...DEFAULT_SETTINGS, ...read<Partial<Settings>>(KEYS.settings, {}) };
+  return { ...DEFAULT_SETTINGS, ...stored };
 }
 
 export function saveSettings(settings: Settings): void {
