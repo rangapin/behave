@@ -66,7 +66,10 @@ export const DEFAULT_SETTINGS: Settings = {
   readAloud: true,
   voiceMode: "browser",
   browserVoiceURI: null,
-  elevenVoiceId: "21m00Tcm4TlvDq8ikWAM", // Rachel
+  // Sarah — a *premade* voice. specs.md §4 originally defaulted to Rachel
+  // (21m00Tcm4TlvDq8ikWAM), but Rachel is a library voice and free-tier keys
+  // get 402 paid_plan_required on those. Premade voices work on every tier.
+  elevenVoiceId: "EXAVITQu4vr4xnSDxMaL",
 };
 
 /** Runaway ceiling multiplier — specs.md §2. Safety net, not a second timer. */

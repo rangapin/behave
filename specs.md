@@ -213,7 +213,13 @@ Priority order, selectable in settings:
 1. **ElevenLabs** via `POST /api/tts` (server route, key from env): body
    `{text, voiceId}`, upstream `model_id: eleven_turbo_v2_5`,
    `voice_settings {stability:.5, similarity_boost:.75}`; stream/return audio blob.
-   Default voiceId `21m00Tcm4TlvDq8ikWAM` (Rachel), overridable in settings.
+   Default voiceId `EXAVITQu4vr4xnSDxMaL` (Sarah), overridable in settings.
+
+   **Use a premade voice, not a library voice.** This spec originally defaulted to
+   Rachel (`21m00Tcm4TlvDq8ikWAM`); on a free-tier key that returns
+   `402 paid_plan_required` — "Free users cannot use library voices via the API."
+   Premade voices work on every tier. `GET /v1/voices` lists what a given key can
+   actually use; anything with `category: "premade"` is safe.
 2. **Browser speechSynthesis** with a voice picker: list English voices ranked
    Natural > Google > Premium/Enhanced > rest; persist choice.
 3. **Off** — questions display as text only.

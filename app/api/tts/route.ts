@@ -4,6 +4,22 @@ import { guard } from "@/lib/guard";
 const ELEVEN_MODEL = "eleven_turbo_v2_5";
 const VOICE_SETTINGS = { stability: 0.5, similarity_boost: 0.75 };
 
+/**
+ * ElevenLabs nests the useful sentence at `detail.message`. Without this the UI
+ * showed a bare "elevenlabs 402" and threw away the only part worth reading —
+ * e.g. "Free users cannot use library voices via the API."
+ */
+function readableError(status: number, raw: string): string {
+  try {
+    const parsed = JSON.parse(raw) as { detail?: { message?: string }; message?: string };
+    const message = parsed.detail?.message ?? parsed.message;
+    if (typeof message === "string" && message.trim()) return message.trim();
+  } catch {
+    // non-JSON body — fall through to the status line
+  }
+  return `elevenlabs ${status}`;
+}
+
 export async function POST(req: Request) {
   const blocked = guard(req);
   if (blocked) return blocked;
@@ -48,9 +64,9 @@ export async function POST(req: Request) {
     if (!upstream.ok) {
       // Surface the reason so a bad voiceId shows an inline notice rather than
       // failing silently — §4 and the phase 2 verification both depend on this.
-      const detail = await upstream.text().catch(() => "");
+      const raw = await upstream.text().catch(() => "");
       return Response.json(
-        { error: `elevenlabs ${upstream.status}`, detail: detail.slice(0, 400) },
+        { error: readableError(upstream.status, raw), detail: raw.slice(0, 400) },
         { status: 502 },
       );
     }
