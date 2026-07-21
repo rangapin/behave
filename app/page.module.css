@@ -31,6 +31,20 @@
   opacity: 0.75;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Link styled as .btn — kill the underline the anchor brings. */
+.actions a.btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (max-width: 520px) {
   .main {
     padding: 36px 18px 64px;

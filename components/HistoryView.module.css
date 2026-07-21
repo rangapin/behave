@@ -1,0 +1,137 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.back {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--kelp);
+}
+
+.title {
+  margin: 6px 0 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.clear {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--mist);
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.clear:hover {
+  border-color: var(--alert);
+  color: var(--alert);
+}
+
+.empty {
+  margin: 0;
+  color: var(--mist);
+  opacity: 0.75;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.groupHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 8px;
+}
+
+.question {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--foam);
+}
+
+.count {
+  color: var(--mist);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(96px, auto) 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.when {
+  color: var(--mist);
+  opacity: 0.7;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+
+.marks {
+  display: flex;
+  min-width: 0;
+}
+
+.status {
+  color: var(--mist);
+  opacity: 0.75;
+  letter-spacing: 0.08em;
+}
+
+.time {
+  color: var(--mist);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.over {
+  color: var(--amber);
+}

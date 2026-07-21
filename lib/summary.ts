@@ -2,6 +2,40 @@ import type { Attempt, StarFlags } from "./types";
 
 export type StarMiss = { component: keyof StarFlags; missed: number; of: number };
 
+export type WeakStory = {
+  questionId: string;
+  skips: number;
+  overtimes: number;
+  /** skips + overtimes — the "rewrite these" signal §7 ranks on. */
+  score: number;
+};
+
+/**
+ * The questions you skip or blow the clock on most — §7's "weakest stories —
+ * rewrite these", ranked across all history. A story that was always answered in
+ * time has nothing to flag, so score 0 is dropped rather than shown as a zero.
+ * An abandoned run counts as an overtime (it ran 3× the limit — the same signal).
+ */
+export function weakestStories(
+  attempts: readonly Attempt[],
+  limit = 3,
+): WeakStory[] {
+  const byId = new Map<string, WeakStory>();
+  for (const a of attempts) {
+    const row =
+      byId.get(a.questionId) ??
+      { questionId: a.questionId, skips: 0, overtimes: 0, score: 0 };
+    if (a.skipped) row.skips += 1;
+    if (a.overtime) row.overtimes += 1;
+    row.score = row.skips + row.overtimes;
+    byId.set(a.questionId, row);
+  }
+  return [...byId.values()]
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
 export type SessionStats = {
   answered: number;
   skipped: number;

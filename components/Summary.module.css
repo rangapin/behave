@@ -39,9 +39,60 @@
   letter-spacing: 0.06em;
 }
 
-.note {
+.weakest {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.weakList {
+  list-style: none;
   margin: 0;
-  font-size: 13px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  counter-reset: weak;
+}
+
+.weakItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.weakItem::before {
+  counter-increment: weak;
+  content: counter(weak);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+}
+
+.weakQ {
+  flex: 1;
+  font-size: 14px;
   color: var(--mist);
-  opacity: 0.7;
+}
+
+.weakMeta {
+  color: var(--amber);
+  text-transform: none;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }

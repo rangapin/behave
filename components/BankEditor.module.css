@@ -1,0 +1,140 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.back {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--kelp);
+}
+
+.title {
+  margin: 6px 0 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--mist);
+  opacity: 0.7;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itemHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.id {
+  color: var(--kelp);
+  opacity: 0.85;
+}
+
+.delete {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--mist);
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.delete:hover {
+  border-color: var(--alert);
+  color: var(--alert);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.textarea {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: rgba(14, 34, 51, 0.6);
+  color: var(--foam);
+  resize: vertical;
+  width: 100%;
+}
+
+.textarea:focus-visible {
+  border-color: var(--kelp);
+}
+
+.flags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.flag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--mist);
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+.flag:hover {
+  border-color: var(--amber);
+}
+
+.flagOn {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(255, 180, 84, 0.1);
+}

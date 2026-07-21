@@ -10,6 +10,8 @@ import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { useTimer } from "@/hooks/useTimer";
 import { useVoice } from "@/hooks/useVoice";
 import { fetchCritique, fetchVariant } from "@/lib/api-client";
+import Link from "next/link";
+import { recordAttempt } from "@/lib/history-store";
 import { pickSession } from "@/lib/shuffle";
 import { loadBank } from "@/lib/storage";
 import {
@@ -122,10 +124,12 @@ export default function Page() {
     setStage("answering");
   }, [voice, recorder, speech, timer]);
 
-  const logAttempt = useCallback(
-    (attempt: Attempt) => setAttempts((prev) => [...prev, attempt]),
-    [],
-  );
+  const logAttempt = useCallback((attempt: Attempt) => {
+    // Session state feeds this run's summary; history persists across sessions
+    // for the weakest-stories ranking and the history page. §7.
+    setAttempts((prev) => [...prev, attempt]);
+    recordAttempt(attempt);
+  }, []);
 
   const finish = useCallback(
     async (abandonedRun: boolean) => {
@@ -260,9 +264,17 @@ export default function Page() {
           voiceError={voice.error}
         />
 
-        <button className="btn btn-primary" onClick={startSession}>
-          start session
-        </button>
+        <div className={styles.actions}>
+          <button className="btn btn-primary" onClick={startSession}>
+            start session
+          </button>
+          <Link className="btn" href="/bank">
+            edit bank
+          </Link>
+          <Link className="btn" href="/history">
+            history
+          </Link>
+        </div>
       </main>
     );
   }

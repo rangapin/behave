@@ -91,3 +91,7 @@ export function loadHistory(): Attempt[] {
 export function appendAttempt(attempt: Attempt): void {
   write(KEYS.history, [...loadHistory(), attempt]);
 }
+
+export function clearHistory(): void {
+  write(KEYS.history, []);
+}
