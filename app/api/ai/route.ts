@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { guard } from "@/lib/guard";
 import { parseCritique } from "@/lib/parse-critique";
+import { cleanVariant } from "@/lib/parse-variant";
 import { buildCritiquePrompt, buildVariantPrompt } from "@/lib/prompts";
 import { FALLBACK_FEEDBACK } from "@/lib/parse-critique";
 import type { Critique } from "@/lib/types";
@@ -42,7 +43,7 @@ async function variant(payload: VariantPayload) {
     messages: [{ role: "user", content: buildVariantPrompt(original) }],
   });
 
-  const rephrased = textOf(message).trim();
+  const rephrased = cleanVariant(textOf(message));
 
   // §3: 15 < length < 400, else fall back to the canonical wording. Validated
   // here rather than client-side so the route always returns a usable question.
